@@ -420,8 +420,8 @@ int xslt_transform (xmlDocPtr doc, const char *xslfilename, client_t *client)
     }
     else
     {
-        /* the 100 is to allow for the hardcoded headers */
-        refbuf_t *refbuf = refbuf_new (200);
+        /* the 240 is to allow for the hardcoded headers */
+        refbuf_t *refbuf = refbuf_new (240);
         const char *mediatype = NULL;
 
         /* lets find out the content type to use */
@@ -438,11 +438,12 @@ int xslt_transform (xmlDocPtr doc, const char *xslfilename, client_t *client)
                 else
                     mediatype = "text/xml";
         }
-        snprintf (refbuf->data, 200,
+        snprintf (refbuf->data, 240,
                 "HTTP/1.0 200 OK\r\nContent-Type: %s\r\nContent-Length: %d\r\n"
                 "Expires: Thu, 19 Nov 1981 08:52:00 GMT\r\n"
                 "Cache-Control: no-store, no-cache, must-revalidate\r\n"
                 "Pragma: no-cache\r\n"
+                "Access-Control-Allow-Origin: *\r\n"
                 "\r\n",
                 mediatype, len);
 
